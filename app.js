@@ -1,42 +1,15 @@
 const express = require('express')
 let app = express()
 const bodyParser = require('body-parser')
+const rutaLibros = require('./routes/libros')
 
 app.use(bodyParser.json())
+app.use('/libros', rutaLibros)
 
 app.get('/', (req, res) => {
   res.send("Hola")
 })
 
-app.get('/libros', (req, res) => {
-  //Regresar todos los libros de la BD
-  console.log("Estamos en el GET de libros");
-  res.send(200)
-})
-
-app.get('/libros/:id', (req, res) => {
-  //Regresar SOLO el libro con el ID recibido
-  console.log("Estamos en el GET especifico");
-  res.send(200)
-})
-
-app.post('/libros', (req, res) => {
-  //Parsear informacion recibida
-  //Guardarla en la BD
-  //responder con un mensaje de error o de success
-  console.log("Estamos en el POST de libros");
-  res.send(200)
-})
-
-app.put('libros/:idlibro', (req, res) => {
-  console.log("Estoy en el PUT libros");
-  res.send(200)
-})
-
-app.delete('libros/:idlibro', (req, res) => {
-  console.log("Estoy en el DELETE de libros");
-  res.send(200)
-})
 
 //process.env contiene las variables de ambiente del proceso
 app.listen(process.env.PORT || 5000, () => {
