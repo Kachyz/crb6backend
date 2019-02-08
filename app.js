@@ -2,9 +2,17 @@ const express = require('express')
 let app = express()
 const bodyParser = require('body-parser')
 const rutaLibros = require('./routes/libros')
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/libreria')
 
 app.use(bodyParser.json())
 app.use('/libros', rutaLibros)
+
+mongoose.connection.once('open', () => {
+  console.log("SI me pude conectar a la BD");
+}).on('error', () => {
+  console.log("NO me pude conectar :(");
+})
 
 app.get('/', (req, res) => {
   res.send("Hola")
